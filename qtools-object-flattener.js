@@ -14,9 +14,9 @@ const moduleFunction = function(args = {}) {
 	
 	//FLATTEN ============================================================
 
-	const flatten = function({ inputItem, outArray, pathSoFar = '', depth = 0 }) {
+	const flatten = function({ inputItem, outObject, pathSoFar = '', depth = 0 }) {
 		const doRecursion = args => {
-			const { inputItem, outArray, pathSoFar = '', depth = 0 } = args; //unused, here for debugging
+			const { inputItem, outObject, pathSoFar = '', depth = 0 } = args; //unused, here for debugging
 
 			return flatten(args);
 		};
@@ -36,12 +36,12 @@ const moduleFunction = function(args = {}) {
 		}
 		
 		if (isSimpleType(inputItem)) {
-			outArray[pathSoFar] = inputItem;
+			outObject[pathSoFar] = inputItem;
 		} else if (inputItem instanceof Array) {
 			inputItem.forEach((item, inx) => {
 				return doRecursion({
 					inputItem: inputItem[inx],
-					outArray,
+					outObject,
 					pathSoFar: `${pathSoFar}[${inx}]`,
 					depth: depth + 1
 				});
@@ -50,7 +50,7 @@ const moduleFunction = function(args = {}) {
 			Object.keys(inputItem).forEach(inx => {
 				return doRecursion({
 					inputItem: inputItem[inx],
-					outArray,
+					outObject,
 					pathSoFar: `${pathSoFar}${pathSoFar ? '.' : ''}${inx}`,
 					depth: depth + 1
 				});
@@ -72,9 +72,21 @@ const moduleFunction = function(args = {}) {
 
 	const convert = (inputItem, callback) => {
 		//const resultString = 'orange';
-		const outArray = {};
+		const outObject = {};
 
-		flatten({ inputItem, outArray });
+		flatten({ inputItem, outObject });
+		
+		if (typeof(callback)=='function'){
+		callback('', outObject); //send outputString to caller
+		}
+		else{
+			return outObject;
+		}
+	};
+
+	const convertArray = (inArray, callback) => {
+		//const resultString = 'orange';
+		const outArray=inArray.map(item=>convert(item));
 		
 		if (typeof(callback)=='function'){
 		callback('', outArray); //send outputString to caller
@@ -86,7 +98,7 @@ const moduleFunction = function(args = {}) {
 	
 	
 	
-	return { convert, resurrect };
+	return { convert, resurrect, convertArray };
 };
 
 //END OF moduleFunction() ============================================================
