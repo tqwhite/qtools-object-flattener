@@ -1,0 +1,14 @@
+{
+  "name": "qtools-object-flattener",
+  "version": "1.0.0",
+  "description": "flattens complex object into  tsv with columns named as the dotted path to the value",
+  "main": "qtools-object-flattener.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TQ White II",
+  "license": "ISC",
+  "dependencies": {
+    "qtools-functional-library": "^1.1.8"
+  }
+}
