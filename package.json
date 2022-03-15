@@ -1,6 +1,6 @@
 {
   "name": "qtools-object-flattener",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "flattens complex object into  tsv with columns named as the dotted path to the value",
   "main": "qtools-object-flattener.js",
   "scripts": {

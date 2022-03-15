@@ -5,17 +5,23 @@ Collapses JS complex, multi-level JS object to single level object with dotted p
 ### Usage:
 
 **//flattens input. Works for an array but does not make much sense**
-const jsonFlattener = require('qtools-object-flattener');
-const flatObject=jsonFlattener.convert(someObject);
 
-const sameAsOriginal=jsonFlatter.resurrect(flatObject);
+    const jsonFlattener = require('qtools-object-flattener');
 
 
+    const flatObject=jsonFlattener.convert(someObject, [options], [callback]);
+
+    const sameAsOriginal=jsonFlatter.resurrect(flatObject, [options], [callback]);
 
 **//does not convert top level array, returns an array of flattened objects**
-const flatArray=jsonFlattener.convertArray(someArrayOfObjects); 
 
+    const flatArray=jsonFlattener.convertArray(someArrayOfObjects); 
 
+//Both conversion methods take an *optional* options object. Presently takes only one value, nameTransformation.
+
+    const flatArray=jsonFlattener.convertArray(someArrayOfObjects, {nameTransformer:dottedPath>dottedPath.replace(/\./g, '\_')}); 
+    
+    const flatObject=jsonFlattener.convert(someObject, {nameTransformer:dottedPath=>dottedPath.replace(/\./g, '\_')});
 
 **The closest there is to a test is:**
 
