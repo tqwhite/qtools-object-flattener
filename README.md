@@ -2,28 +2,34 @@
 
 Collapses JS complex, multi-level JS object to single level object with dotted path property names
 
-### Usage:
+## Usage:
 
-**//flattens input. Works for an array but does not make much sense**
+#### **Flatten an object**
 
     const jsonFlattener = require('qtools-object-flattener');
-
-
+    
     const flatObject=jsonFlattener.convert(someObject, [options], [callback]);
 
-    const sameAsOriginal=jsonFlatter.resurrect(flatObject, [options], [callback]);
+Works when executed on an Array but it doesn't make too much sense.
 
-**//does not convert top level array, returns an array of flattened objects**
+Without a callback, the result is returned.
 
-    const flatArray=jsonFlattener.convertArray(someArrayOfObjects); 
+#### **Flatten an array of objects**
 
-//Both conversion methods take an *optional* options object. Presently takes only one value, nameTransformation.
+    const flatArray=jsonFlattener.convertArray(someArrayOfObjects, [options], [callback]); 
+
+#### **Optional parameters in the options parameter object.**
+
+**nameTransformer** - a function that operates on the generated, dotted path in any way that is useful and produces a new string
+**maxDepth**        - recursion limit, default is 20
+
+**EG,**
 
     const flatArray=jsonFlattener.convertArray(someArrayOfObjects, {nameTransformer:dottedPath>dottedPath.replace(/\./g, '\_')}); 
     
     const flatObject=jsonFlattener.convert(someObject, {nameTransformer:dottedPath=>dottedPath.replace(/\./g, '\_')});
 
-**The closest there is to a test is:**
+#### **The closest there is to a test is:**
 
 npm run demo
 
@@ -31,7 +37,7 @@ Which has examples of the main function as illustrated below.
 
 ### Examples:
 
-**Flattening an object:**
+#### **Flattening an object:**
 
     const flatObject=jsonFlattener.convert(someObject);
 
@@ -61,7 +67,7 @@ const flatObject={
   'websites[2]': 'https://jsLightning.com'
 }
 
-**Flattening an array of objects into an array of flattened objects**
+#### **Flattening an array of objects into an array of flattened objects**
 
     const flatObject=jsonFlattener.convert(someObject);
 

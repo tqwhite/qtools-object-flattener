@@ -20,7 +20,8 @@ const moduleFunction = function(args = {}) {
 		outObject,
 		pathSoFar = '',
 		depth = 0,
-		nameTransformer = item => item
+		nameTransformer = item => item,
+		maxDepth=20
 	}=args;
 		const doRecursion = args => {
 			const {
@@ -42,10 +43,8 @@ const moduleFunction = function(args = {}) {
 			throw 'json-flattener only works on arrays and objects, not sets or maps.';
 		}
 
-		if (depth > 5) {
-			console.error(`depth=${depth}`);
-
-			throw 'too deep';
+		if (depth > maxDepth) {
+			throw `qtools-object-flattener says, Recursed too deeply (${depth} levels, ${maxDepth} allowed; change option.maxDepth)`;
 		}
 
 		if (isSimpleType(inputItem)) {
