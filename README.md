@@ -1,6 +1,14 @@
 # qtools-object-flattener
 
-Collapses JS complex, multi-level JS object to single level object with dotted path property names
+Collapses JS complex, multi-level JS object to <u>single level </u>object with dotted path property names.
+
+
+
+Is useful for puttting Javascript objects into relational databases when you don't want to use a JSON field type. Column names become dotted.paths. Also for analysis of complicated objects.
+
+
+
+Also consider qtools-functional-library with its objectInstance.getSurePath('some.dotted.path') and objectInstance.putDottedPath('another.path', value)
 
 ## Usage:
 
@@ -41,7 +49,7 @@ Which has examples of the main function as illustrated below.
 
     const flatObject=jsonFlattener.convert(someObject);
 
-someObject={
+`someObject={
     name: 'TQ White II',
     tv1:{
         brand: 'Sony',
@@ -53,11 +61,11 @@ someObject={
         'https://tech.genericWhite.com',
         'https://jsLightning.com'
     ]
-}
+}`
 
-**Flattens to:**
+`**Flattens to:**`
 
-const flatObject={
+`const flatObject={
   name: 'TQ White II',
   'tv1.brand': 'Sony',
   'tv1.inches': 60,
@@ -65,13 +73,13 @@ const flatObject={
   'websites[0]': 'https://tqwhite.com',
   'websites[1]': 'https://tech.genericWhite.com',
   'websites[2]': 'https://jsLightning.com'
-}
+}`
 
 #### **Flattening an array of objects into an array of flattened objects**
 
     const flatObject=jsonFlattener.convert(someObject);
 
-const someArray = [
+`const someArray = [
     {
         name: 'TQ White II',
         tv1: {
@@ -98,11 +106,11 @@ const someArray = [
             'https://jsLightning.com'
         ]
     }
-];
+];`
 
 **Flattens to:**
 
-const flattenedArray=[
+`const flattenedArray=[
     {
       name: 'TQ White II',
       'tv1.brand': 'Sony',
@@ -121,4 +129,10 @@ const flattenedArray=[
       'websites[1]': 'https://tech.genericWhite.com',
       'websites[2]': 'https://jsLightning.com'
     }
-  ]
+  ]`
+
+**Change Log**
+
+
+
+v1.0.4 Updated README only. No code changes.
